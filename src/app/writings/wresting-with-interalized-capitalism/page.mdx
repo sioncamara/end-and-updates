@@ -1,4 +1,5 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
+import { CollapsibleReferences } from '@/components/CollapsibleReferences'
 import selfInstrumentalization from './self-instramentalization.png'
 
 export const article = {
@@ -85,105 +86,182 @@ Because here's what internalized capitalism doesn't want you to discover: when y
 
 The wrestling match with internalized capitalism isn't won through better time management or more efficient goal-setting. It's won by remembering that you're a living system first, and a productive unit second. Everything else follows from there.
 
----
-
-## References
-
-<div id="ref1">
-  1. Ryan, R. M., & Deci, E. L. (2000). Self-determination theory and the
-  facilitation of intrinsic motivation, social development, and well-being.
-  *American Psychologist*, 55(1), 68-78.
-  https://doi.org/10.1037/0003-066X.55.1.68
-</div>
-
-<div id="ref2">
-  2. Kasser, T., & Ryan, R. M. (1996). Further examining the American dream:
-  Differential correlates of intrinsic and extrinsic goals. *Personality and
-  Social Psychology Bulletin*, 22(3), 280-287.
-  https://doi.org/10.1177/0146167296223006
-</div>
-
-<div id="ref3">
-  3. Herman, J. L. (2015). *Trauma and recovery: The aftermath of violence--From
-  domestic abuse to political terror*. Basic Books.
-</div>
-
-<div id="ref4">
-  4. Van der Kolk, B. A. (2014). *The body keeps the score: Brain, mind, and
-  body in the healing of trauma*. Viking.
-</div>
-
-<div id="ref5">
-  5. Levine, P. A. (2010). *In an unspoken voice: How the body releases trauma
-  and restores goodness*. North Atlantic Books.
-</div>
-
-<div id="ref6">
-  6. Ramit, S. (2009). *I Will Teach You to Be Rich*. Workman Publishing. [Note:
-  This represents one model of financial stages; academic literature on
-  financial stress and security includes various frameworks]
-</div>
-
-<div id="ref7">
-  7. Bertalanffy, L. von. (1968). *General system theory: Foundations,
-  development, applications*. George Braziller.
-</div>
-
-<div id="ref8">
-  8. McEwen, B. S. (2007). Physiology and neurobiology of stress and adaptation:
-  Central role of the brain. *Physiological Reviews*, 87(3), 873-904.
-  https://doi.org/10.1152/physrev.00041.2006
-</div>
-
-<div id="ref9">
-  9. Brown, S. (2009). *Play: How it shapes the brain, opens the imagination,
-  and invigorates the soul*. Avery.
-</div>
-
-<div id="ref10">
-  10. Maslach, C., & Leiter, M. P. (2016). Understanding the burnout experience:
-  Recent research and its implications for psychiatry. *World Psychiatry*,
-  15(2), 103-111. https://doi.org/10.1002/wps.20311
-</div>
-
-<div id="ref11">
-  11. Babiak, P., & Hare, R. D. (2006). *Snakes in suits: When psychopaths go to
-  work*. Regan Books.
-</div>
-
-<div id="ref12">
-  12. Scharmer, O. (2016). *Theory U: Leading from the future as it emerges*.
-  Berrett-Koehler Publishers.
-</div>
-
-<div id="ref13">
-  13. Schaufeli, W. B., & Bakker, A. B. (2004). Job demands, job resources, and
-  their relationship with burnout and engagement: A multi‐sample study. *Journal
-  of Organizational Behavior*, 25(3), 293-315. https://doi.org/10.1002/job.248
-</div>
-
-<div id="ref14">
-  14. Porges, S. W. (2011). *The polyvagal theory: Neurophysiological
-  foundations of emotions, attachment, communication, and self-regulation*. W.
-  W. Norton & Company.
-</div>
-
-<div id="ref15">
-  15. Capra, F., & Luisi, P. L. (2014). *The systems view of life: A unifying
-  vision*. Cambridge University Press.
-</div>
-
-<div id="ref16">
-  16. Wilkinson, R., & Pickett, K. (2009). *The spirit level: Why greater
-  equality makes societies stronger*. Bloomsbury Press.
-</div>
-
-<div id="ref17">
-  17. Pink, D. H. (2009). *Drive: The surprising truth about what motivates us*.
-  Riverhead Books.
-</div>
-
----
+<CollapsibleReferences references={[
+  {
+    id: "ref1",
+    content: (
+      <div>
+        1. Ryan, R. M., & Deci, E. L. (2000). Self-determination theory and the
+        facilitation of intrinsic motivation, social development, and well-being.
+        <em> American Psychologist</em>, 55(1), 68-78.{' '}
+        <a href="https://doi.org/10.1037/0003-066X.55.1.68" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+          https://doi.org/10.1037/0003-066X.55.1.68
+        </a>
+      </div>
+    )
+  },
+  {
+    id: "ref2",
+    content: (
+      <div>
+        2. Kasser, T., & Ryan, R. M. (1996). Further examining the American dream:
+        Differential correlates of intrinsic and extrinsic goals. <em>Personality and
+        Social Psychology Bulletin</em>, 22(3), 280-287.{' '}
+        <a href="https://doi.org/10.1177/0146167296223006" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+          https://doi.org/10.1177/0146167296223006
+        </a>
+      </div>
+    )
+  },
+  {
+    id: "ref3",
+    content: (
+      <div>
+        3. Herman, J. L. (2015). <em>Trauma and recovery: The aftermath of violence--From
+        domestic abuse to political terror</em>. Basic Books.
+      </div>
+    )
+  },
+  {
+    id: "ref4",
+    content: (
+      <div>
+        4. Van der Kolk, B. A. (2014). <em>The body keeps the score: Brain, mind, and
+        body in the healing of trauma</em>. Viking.
+      </div>
+    )
+  },
+  {
+    id: "ref5",
+    content: (
+      <div>
+        5. Levine, P. A. (2010). <em>In an unspoken voice: How the body releases trauma
+        and restores goodness</em>. North Atlantic Books.
+      </div>
+    )
+  },
+  {
+    id: "ref6",
+    content: (
+      <div>
+        6. Ramit, S. (2009). <em>I Will Teach You to Be Rich</em>. Workman Publishing. [Note:
+        This represents one model of financial stages; academic literature on
+        financial stress and security includes various frameworks]
+      </div>
+    )
+  },
+  {
+    id: "ref7",
+    content: (
+      <div>
+        7. Bertalanffy, L. von. (1968). <em>General system theory: Foundations,
+        development, applications</em>. George Braziller.
+      </div>
+    )
+  },
+  {
+    id: "ref8",
+    content: (
+      <div>
+        8. McEwen, B. S. (2007). Physiology and neurobiology of stress and adaptation:
+        Central role of the brain. <em>Physiological Reviews</em>, 87(3), 873-904.{' '}
+        <a href="https://doi.org/10.1152/physrev.00041.2006" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+          https://doi.org/10.1152/physrev.00041.2006
+        </a>
+      </div>
+    )
+  },
+  {
+    id: "ref9",
+    content: (
+      <div>
+        9. Brown, S. (2009). <em>Play: How it shapes the brain, opens the imagination,
+        and invigorates the soul</em>. Avery.
+      </div>
+    )
+  },
+  {
+    id: "ref10",
+    content: (
+      <div>
+        10. Maslach, C., & Leiter, M. P. (2016). Understanding the burnout experience:
+        Recent research and its implications for psychiatry. <em>World Psychiatry</em>,
+        15(2), 103-111.{' '}
+        <a href="https://doi.org/10.1002/wps.20311" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+          https://doi.org/10.1002/wps.20311
+        </a>
+      </div>
+    )
+  },
+  {
+    id: "ref11",
+    content: (
+      <div>
+        11. Babiak, P., & Hare, R. D. (2006). <em>Snakes in suits: When psychopaths go to
+        work</em>. Regan Books.
+      </div>
+    )
+  },
+  {
+    id: "ref12",
+    content: (
+      <div>
+        12. Scharmer, O. (2016). <em>Theory U: Leading from the future as it emerges</em>.
+        Berrett-Koehler Publishers.
+      </div>
+    )
+  },
+  {
+    id: "ref13",
+    content: (
+      <div>
+        13. Schaufeli, W. B., & Bakker, A. B. (2004). Job demands, job resources, and
+        their relationship with burnout and engagement: A multi‐sample study. <em>Journal
+        of Organizational Behavior</em>, 25(3), 293-315.{' '}
+        <a href="https://doi.org/10.1002/job.248" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+          https://doi.org/10.1002/job.248
+        </a>
+      </div>
+    )
+  },
+  {
+    id: "ref14",
+    content: (
+      <div>
+        14. Porges, S. W. (2011). <em>The polyvagal theory: Neurophysiological
+        foundations of emotions, attachment, communication, and self-regulation</em>. W.
+        W. Norton & Company.
+      </div>
+    )
+  },
+  {
+    id: "ref15",
+    content: (
+      <div>
+        15. Capra, F., & Luisi, P. L. (2014). <em>The systems view of life: A unifying
+        vision</em>. Cambridge University Press.
+      </div>
+    )
+  },
+  {
+    id: "ref16",
+    content: (
+      <div>
+        16. Wilkinson, R., & Pickett, K. (2009). <em>The spirit level: Why greater
+        equality makes societies stronger</em>. Bloomsbury Press.
+      </div>
+    )
+  },
+  {
+    id: "ref17",
+    content: (
+      <div>
+        17. Pink, D. H. (2009). <em>Drive: The surprising truth about what motivates us</em>.
+        Riverhead Books.
+      </div>
+    )
+  }
+]} />
 
 ## Claims Requiring Further Investigation
 

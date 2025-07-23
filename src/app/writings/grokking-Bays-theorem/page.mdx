@@ -1,0 +1,88 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { BayesVisualization } from '@/components/BayesVisualization'
+import { Math } from '@/components/Math'
+
+export const article = {
+  author: 'Sion Wilks',
+  date: '2025-01-15',
+  title: 'Grokking Bayes\' Theorem',
+  description:
+    'A deep dive into understanding Bayes\' theorem beyond the formula - developing intuition for how probability updates with new evidence.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+# Grokking Bayes' Theorem
+
+Most explanations of Bayes' theorem focus on "updating beliefs" or "revising probabilities," but these framings often obscure the deeper conceptual structure. To truly grok Bayes' theorem, we need to think about it as a series of operations across the space of possible worlds.
+
+## The Possible Worlds Framework
+
+The key insight is that uncertainty comes from not knowing which world we're in. When we assign probabilities, we're really expressing our credence across all possible worlds. A prior probability <Math>{"P(H)"}</Math> represents the proportion of all possible worlds where hypothesis <Math>{"H"}</Math> is true.
+
+This isn't just philosophical abstraction—it's the conceptual foundation that makes Bayes' theorem intuitive.
+
+## The Three Operations of Bayes' Theorem
+
+Let's break down what's really happening in Bayes' theorem:
+
+<Math display={true}>
+{"P(H|E) = \\frac{P(E|H) \\times P(H)}{P(E)}"}
+</Math>
+
+### Operation 1: Conditional Filtering - <Math>{"P(E|H)"}</Math>
+"If we suppose our hypothesis H is true, in how many of those H-worlds does evidence E occur?"
+
+This is asking: among all the worlds where H is true, what fraction also contain E? This gives us the "signal strength" of E for hypothesis H.
+
+### Operation 2: The Zoom Out - <Math>{"P(E|H) \\times P(H)"}</Math>
+"Out of all possible worlds, how many contain both H and E?"
+
+By multiplying the conditional probability by the prior, we're performing a zoom-out operation. We're no longer just considering H-worlds—we're asking about the joint occurrence across the entire space of possible worlds. This gives us <Math>{"P(E \\cap H)"}</Math>.
+
+### Operation 3: The Zoom In - Dividing by <Math>{"P(E)"}</Math>
+"Among all worlds where E is produced, what proportion have H true?"
+
+The division by P(E) is a normalization operation—a zoom in. We're conditioning on having observed E, so we restrict our attention to only the subset of worlds where E has been produced. Then we ask: what fraction of these E-worlds are also H-worlds?
+
+## Why This Matters
+
+This framework reveals why Bayes' theorem works:
+
+1. **It's about filtering, not mystical belief updating**: We're systematically narrowing down the space of possible worlds based on evidence.
+
+2. **The operations have clear geometric intuition**: Zoom out to get joint probability, zoom in to get conditional probability.
+
+3. **It explains why priors matter**: <Math>{"P(H)"}</Math> determines how much "weight" the H-worlds carry in the overall calculation.
+
+4. **It clarifies what evidence does**: Evidence <Math>{"E"}</Math> doesn't change the worlds themselves—it changes which worlds we're considering.
+
+## A Concrete Example
+
+Imagine 1000 possible worlds:
+- 300 worlds where it's raining (<Math>{"H"}</Math>)
+- 700 worlds where it's not raining
+
+Now, in 90% of rainy worlds, people carry wet umbrellas (<Math>{"E"}</Math>). In 10% of non-rainy worlds, people also carry wet umbrellas (sprinklers, etc.).
+
+<Math>{"P(E|H) = 0.9"}</Math>: In 270 of the 300 rainy worlds, we see wet umbrellas
+<Math>{"P(E|H) \\times P(H)"}</Math>: 270 worlds total have both rain and wet umbrellas
+<Math>{"P(E) = 0.34"}</Math>: 340 worlds total have wet umbrellas (270 + 70)
+<Math>{"P(H|E) = \\frac{270}{340} = 0.79"}</Math>: Among the 340 worlds with wet umbrellas, 270 of them are rainy
+
+The theorem doesn't change reality—it helps us figure out which slice of reality we're likely in.
+
+<BayesVisualization />
+
+## Beyond Traditional Explanations
+
+Most explanations get bogged down in the mechanics of "updating beliefs." But Bayes' theorem isn't fundamentally about psychology or belief revision—it's about logical relationships between propositions across possible worlds.
+
+This perspective makes the theorem less mysterious and more intuitive. We're not performing some magical belief update; we're doing systematic bookkeeping across logical possibilities.
+
+The real insight is that uncertainty isn't about the world being random—it's about not knowing which determinate world we're in. Bayes' theorem gives us a principled way to narrow down the possibilities. 
