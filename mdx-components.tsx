@@ -1,9 +1,8 @@
 import Image, { type ImageProps } from 'next/image'
-import { type MDXComponents } from 'mdx/types'
 
-export function useMDXComponents(components: MDXComponents) {
+export function useMDXComponents(components: any) {
   return {
     ...components,
-    Image: (props: ImageProps) => <Image {...props} />,
+    Image: (props: ImageProps) => <Image {...props} alt={props.alt || "image did not render"} />,
   }
 }
