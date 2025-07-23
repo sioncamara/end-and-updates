@@ -21,12 +21,12 @@ export default (props) => <ArticleLayout article={article} {...props} />
 
 # Grokking Bayes' Theorem
 
-Understanding Bayes' theorem in an intutive matter consists of taking the abstract formula known as Baye's theorem
+Understanding Bayes' theorem in an intuitive manner consists of taking the abstract formula known as Bayes' theorem
 <Math display={true}>
 {"P(H|E) = \\frac{P(E|H) \\times P(H)}{P(E)}"}
 </Math>
 
-And mapping the abstract concepts these symbols respresent into conceptual models our human perceptual systems intutivley understand.
+And mapping the abstract concepts these symbols represent into conceptual models our human perceptual systems intuitively understand.
 
 An appropriate place to start is with grokking the formal definition of conditional probability. This building block allows for the indirect inference that Bayes' formula is a formalization of:
 
@@ -111,12 +111,11 @@ The key insight: conditional probability shifts our frame of reference. Instead 
   ]}
 />
 
-Now that we have an intuitive understanding of what conditional probability is, we're going to use this conceptual building block
-to start understanding the type of rational inference that Bayes' theorem formally represents.
+## From Conditional Probability to Bayes' Theorem
 
-The good news is that we've already done most of the conceptual heavy lifting.
+Now that we have a solid intuitive grasp of conditional probability and its renormalization concept, we're ready to understand how Bayes' theorem builds upon this foundation. The key insight is that Bayes' theorem is simply a clever rearrangement of what we already know—but this rearrangement unlocks powerful new capabilities for reasoning with uncertainty.
 
-The next useful insight is that the numerator of the conditional probability formula equals the numerator of Bayes' theorem:
+The connection becomes clear when we examine the relationship between the conditional probability formula and Bayes' theorem:
 
 <div className="my-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
   <div className="text-center space-y-6">
@@ -160,7 +159,7 @@ The next useful insight is that the numerator of the conditional probability for
   </div>
 </div>
 
-It's probably not obvious why these are equal at first glance.
+Both formulas calculate the same thing—<Math>{"P(H|E)"}</Math>—but notice how their numerators are highlighted in purple. This isn't a coincidence. The key insight is that these numerators are mathematically equivalent—they evaluate to the same value even though they're different expressions.
 
 <CollapsibleMathBreakdown 
   title="Why are P(H ∩ E) and P(E|H) × P(H) equal? Let's prove it!"
@@ -277,6 +276,20 @@ This symmetry is what makes indirect inference possible. Because both un-normali
 Finally, dividing by <Math>{"P(E)"}</Math> renormalizes again, but this time with E as our new unit of measurement. We've completed a full conceptual journey: **H-space → original space → E-space**—and the commutative property is what guarantees this journey leads us to the correct destination.
 
 This dual renormalization process is why Bayes' theorem enables indirect inference. We can infer <Math>{"P(H|E)"}</Math> from <Math>{"P(E|H)"}</Math> by taking a conceptual detour through different probability universes. It's not just algebra—it's a systematic method for flipping between reference frames to extract the information we need from the information we have.
+
+## Putting It All Together
+
+Now that we've built up our intuitive understanding piece by piece, let's step back and appreciate what we've accomplished. We started with an abstract mathematical formula and transformed it into a coherent mental model built from three key insights:
+
+**1. Renormalization through division:** Conditional probability works by treating the "given" event as a new complete universe. When we calculate <Math>{"P(H|E)"}</Math>, we're not just doing division—we're fundamentally changing our frame of reference to measure everything in "E-units."
+
+**2. The symmetry of intersection:** The commutative property <Math>{"P(H \\cap E) = P(E \\cap H)"}</Math> isn't just a mathematical technicality—it's what makes indirect inference possible. It guarantees that we can reach the same probabilistic intersection from different starting points.
+
+**3. Strategic detours through probability space:** Bayes' theorem enables a sophisticated form of reasoning where we journey from one conditional probability <Math>{"P(E|H)"}</Math> to another <Math>{"P(H|E)"}</Math> by taking a calculated detour through the original probability space. Each step—multiplication by <Math>{"P(H)"}</Math> to un-normalize, then division by <Math>{"P(E)"}</Math> to renormalize—corresponds to a meaningful conceptual operation.
+
+This understanding transforms Bayes' theorem from an abstract formula into an intuitive tool for indirect probabilistic reasoning. You now have a solid conceptual foundation for the mathematical mechanics of how the theorem works.
+
+Of course, there's much more to explore: Bayes' theorem takes on slightly different meanings within different domain contexts, and there's an odds-based formalization of this indirect reasoning that's even more intuitive and particularly powerful for applications like medical diagnosis—where understanding it helps avoid the base rate fallacy that trips up most people. But those are adventures for another day.
 
 
 
