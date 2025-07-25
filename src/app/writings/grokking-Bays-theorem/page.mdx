@@ -1,6 +1,8 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
-import { BayesVisualization } from '@/components/BayesVisualization'
 import { Math } from '@/components/Math'
+import { CollapsibleNotation } from '@/components/CollapsibleNotation'
+import { CollapsibleMathBreakdown } from '@/components/CollapsibleMathBreakdown'
+import { InteractiveVennDiagram } from '@/components/InteractiveVennDiagram'
 
 export const article = {
   author: 'Sion Wilks',
@@ -8,6 +10,7 @@ export const article = {
   title: 'Grokking Bayes\' Theorem',
   description:
     'A deep dive into understanding Bayes\' theorem beyond the formula - developing intuition for how probability updates with new evidence.',
+  published: true,
 }
 
 export const metadata = {
@@ -19,70 +22,283 @@ export default (props) => <ArticleLayout article={article} {...props} />
 
 # Grokking Bayes' Theorem
 
-Most explanations of Bayes' theorem focus on "updating beliefs" or "revising probabilities," but these framings often obscure the deeper conceptual structure. To truly grok Bayes' theorem, we need to think about it as a series of operations across the space of possible worlds.
+## Why Understanding the Formula Matters
 
-## The Possible Worlds Framework
+Most people encounter Bayes' theorem as an abstract formula to memorize. But deeply understanding what this mathematical expression actually represents reveals one of the most elegant forms of reasoning humans have developed: **indirect inference**. 
 
-The key insight is that uncertainty comes from not knowing which world we're in. When we assign probabilities, we're really expressing our credence across all possible worlds. A prior probability <Math>{"P(H)"}</Math> represents the proportion of all possible worlds where hypothesis <Math>{"H"}</Math> is true.
+The ability to systematically reason from what we observe to what we want to know—flipping conditional probabilities through a principled mathematical detour—is both deeply unintuitive to humans and remarkably powerful. This understanding transforms the theorem from mysterious symbols into a coherent mental model for how probability updates with evidence.
 
-This isn't just philosophical abstraction—it's the conceptual foundation that makes Bayes' theorem intuitive.
-
-## The Three Operations of Bayes' Theorem
-
-Let's break down what's really happening in Bayes' theorem:
-
+## Let's get started
+Understanding Bayes' theorem in an intuitive manner consists of taking the abstract formula known as Bayes' theorem
 <Math display={true}>
 {"P(H|E) = \\frac{P(E|H) \\times P(H)}{P(E)}"}
 </Math>
 
-### Operation 1: Conditional Filtering - <Math>{"P(E|H)"}</Math>
-"If we suppose our hypothesis H is true, in how many of those H-worlds does evidence E occur?"
+And mapping the abstract concepts these symbols represent into conceptual models our human perceptual systems intuitively understand.
 
-This is asking: among all the worlds where H is true, what fraction also contain E? This gives us the "signal strength" of E for hypothesis H.
+An appropriate place to start is with grokking the formal definition of conditional probability. This building block allows for the indirect inference that Bayes' formula is a formalization of:
 
-### Operation 2: The Zoom Out - <Math>{"P(E|H) \\times P(H)"}</Math>
-"Out of all possible worlds, how many contain both H and E?"
+<Math display={true}>
+{"P(H|E) = \\frac{P(H \\cap E)}{P(E)}"}
+</Math>
 
-By multiplying the conditional probability by the prior, we're performing a zoom-out operation. We're no longer just considering H-worlds—we're asking about the joint occurrence across the entire space of possible worlds. This gives us <Math>{"P(E \\cap H)"}</Math>.
+<CollapsibleMathBreakdown 
+  title="Unfamiliar with the notation? Click to understand"
+  steps={[
+    {
+      stepName: "Left-hand side",
+      step: "What we're calculating",
+      math: "P(H|E)",
+      explanation: "The probability of hypothesis H given that we've observed evidence E. The vertical line '|' means 'given' or 'conditional on' - it indicates we're calculating the probability of H under the condition that E has occurred."
+    },
+    {
+      stepName: "Numerator",
+      step: "Joint probability",
+      math: "P(H \\cap E)",
+      explanation: "The joint probability that both H and E occur. The ∩ symbol represents set intersection - all outcomes that belong to both the H set and the E set."
+    },
+    {
+      stepName: "Denominator",
+      step: "Evidence probability",
+      math: "P(E)",
+      explanation: "The probability of observing evidence E, regardless of whether H is true or false."
+    }
+  ]}
+/>
 
-### Operation 3: The Zoom In - Dividing by <Math>{"P(E)"}</Math>
-"Among all worlds where E is produced, what proportion have H true?"
+Okay, so we have this formula now how do we understand this just with perceptual intuitions?
 
-The division by P(E) is a normalization operation—a zoom in. We're conditioning on having observed E, so we restrict our attention to only the subset of worlds where E has been produced. Then we ask: what fraction of these E-worlds are also H-worlds?
+The answer is with a good ol' Venn diagram:
 
-## Why This Matters
+<InteractiveVennDiagram />
 
-This framework reveals why Bayes' theorem works:
+In this diagram, the rectangle represents our complete space of possible outcomes. In probability theory, this total area is always normalized to 1, making mathematical calculations more manageable.
 
-1. **It's about filtering, not mystical belief updating**: We're systematically narrowing down the space of possible worlds based on evidence.
+When you click on <Math>{"P(H \\cap E)"}</Math>, you'll see the intersection highlighted in purple. This intersection occupies 11% of the total space, giving it a probability of 0.11. The area occupied by any event in our probability space is called its **probability mass**.
 
-2. **The operations have clear geometric intuition**: Zoom out to get joint probability, zoom in to get conditional probability.
+Clicking on <Math>{"P(E)"}</Math> reveals how much space is taken up by outcomes where evidence E occurs. In our diagram, E has an area of 0.23, meaning there's a 23% chance of observing evidence E within this particular probability space.
 
-3. **It explains why priors matter**: <Math>{"P(H)"}</Math> determines how much "weight" the H-worlds carry in the overall calculation.
+The most interesting case occurs when you click on <Math>{"P(H|E)"}</Math>. Here's where conditional probability becomes intuitive: we're told that E is true (or we're assuming it's true for our calculation). This fundamentally changes our perspective.
 
-4. **It clarifies what evidence does**: Evidence <Math>{"E"}</Math> doesn't change the worlds themselves—it changes which worlds we're considering.
+When we condition on E being true, we're no longer considering the entire probability space. Instead, we zoom in and treat the E region as our new, complete universe. We can ignore everything outside of E—it's no longer relevant to our question.
 
-## A Concrete Example
+Here's the key conceptual shift: **we renormalize E to have an area of 1**. Even though E originally occupied only 23% of our total space, when we condition on it, we treat it as our complete probability space. This renormalization is exactly what the division by P(E) accomplishes in the conditional probability formula.
 
-Imagine 1000 possible worlds:
-- 300 worlds where it's raining (<Math>{"H"}</Math>)
-- 700 worlds where it's not raining
+Within this new "E universe" (now with area 1), we want to know what fraction contains H. The math does this automatically: it takes the intersection area (0.11) and divides by E's original area (0.23), giving us 0.11 ÷ 0.23 ≈ 0.48. This tells us that approximately 48% of our new E-universe also contains H. This is what <Math>{"P(H|E)"}</Math> represents.
 
-Now, in 90% of rainy worlds, people carry wet umbrellas (<Math>{"E"}</Math>). In 10% of non-rainy worlds, people also carry wet umbrellas (sprinklers, etc.).
+The key insight: conditional probability shifts our frame of reference. Instead of asking "What are the chances of H in the entire space?" we're asking "What are the chances of H within the constrained space where E is true?"
 
-<Math>{"P(E|H) = 0.9"}</Math>: In 270 of the 300 rainy worlds, we see wet umbrellas
-<Math>{"P(E|H) \\times P(H)"}</Math>: 270 worlds total have both rain and wet umbrellas
-<Math>{"P(E) = 0.34"}</Math>: 340 worlds total have wet umbrellas (270 + 70)
-<Math>{"P(H|E) = \\frac{270}{340} = 0.79"}</Math>: Among the 340 worlds with wet umbrellas, 270 of them are rainy
+<CollapsibleMathBreakdown 
+  title="How does the math actually accomplish this renormalization?"
+  steps={[
+    {
+      step: "Start with the conditional probability formula",
+      math: "P(H|E) = \\frac{P(H \\cap E)}{P(E)}",
+      explanation: "We want to find the probability of H given E. This formula divides the joint probability by the probability of E."
+    },
+    {
+      step: "Express probabilities as fractions of the total space",
+      math: "P(H|E) = \\frac{\\frac{11}{100}}{\\frac{23}{100}}",
+      explanation: "In our diagram, the intersection occupies 11/100 of the total space, and E occupies 23/100 of the total space. We're expressing these as fractions where 100 represents our complete probability space."
+    },
+    {
+      step: "Convert division of fractions to multiplication",
+      math: "P(H|E) = \\frac{11}{100} \\times \\frac{100}{23}",
+      explanation: "When dividing fractions, we multiply by the reciprocal. This is where the magic happens - notice how the 100s will cancel out."
+    },
+    {
+      step: "Cancel out the common terms",
+      math: "P(H|E) = \\frac{11 \\times \\cancel{100}}{\\cancel{100} \\times 23} = \\frac{11}{23}",
+      explanation: "The 100s cancel out completely! This is the key insight: we're left with just the ratio of areas within the E region, as if E were our complete space."
+    },
+    {
+      step: "The mathematical insight: Division changes our measurement system",
+      math: "P(H|E) = \\frac{\\text{Area of } H \\cap E \\text{ within E}}{\\text{Total area of E}} = \\frac{11}{23} ≈ 0.48",
+      explanation: "Here's the profound insight: when we divide 11 by 23, we're not just doing arithmetic—we're fundamentally changing our measurement system. Division by 23 redefines our unit of measurement so that '23 units' becomes '1 unit.' After this division, we're measuring everything in 'E-units' where E = 1. The result 0.48 tells us that the intersection occupies 0.48 E-units in this new measurement system. This is exactly how conditional probability accomplishes renormalization: the mathematical operation of division IS the conceptual operation of treating E as our new complete space."
+    }
+  ]}
+/>
 
-The theorem doesn't change reality—it helps us figure out which slice of reality we're likely in.
+## From Conditional Probability to Bayes' Theorem
 
-<BayesVisualization />
+Now that we have a solid intuitive grasp of conditional probability and its renormalization concept, we're ready to understand how Bayes' theorem builds upon this foundation. The key insight is that Bayes' theorem is simply a clever rearrangement of what we already know—but this rearrangement unlocks powerful new capabilities for reasoning with uncertainty.
 
-## Beyond Traditional Explanations
+The connection becomes clear when we examine the relationship between the conditional probability formula and Bayes' theorem:
 
-Most explanations get bogged down in the mechanics of "updating beliefs." But Bayes' theorem isn't fundamentally about psychology or belief revision—it's about logical relationships between propositions across possible worlds.
+<div className="my-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+  <div className="text-center space-y-6">
+    <div className="flex justify-center">
+      <div className="text-2xl bg-purple-100 dark:bg-purple-900/30 px-6 py-3 rounded-lg border-purple-400 inline-block">
+        <Math>{"P(H \\cap E) = P(E|H) \\times P(H)"}</Math>
+      </div>
+    </div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="text-center">
+        <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Conditional Probability Formula</div>
+        <div className="text-lg flex items-center justify-center gap-1">
+          <Math>{"P(H|E) ="}</Math>
+          <div className="flex flex-col items-center">
+            <span className="px-2 py-1 rounded border border-purple-500 bg-purple-100 dark:bg-purple-900/30">
+              <Math>{"P(H \\cap E)"}</Math>
+            </span>
+            <div className="w-full h-px bg-black dark:bg-white my-1"></div>
+            <Math>{"P(E)"}</Math>
+          </div>
+        </div>
+      </div>
+      
+      <div className="text-center">
+        <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Bayes' Theorem</div>
+        <div className="text-lg flex items-center justify-center gap-1">
+          <Math>{"P(H|E) ="}</Math>
+          <div className="flex flex-col items-center">
+            <div className="px-2 py-1 rounded border border-purple-500 bg-purple-100 dark:bg-purple-900/30 flex items-center gap-1">
+              <Math>{"P(E|H)"}</Math>
+              <Math>{"\\times"}</Math>
+              <Math>{"P(H)"}</Math>
+            </div>
+            <div className="w-full h-px bg-black dark:bg-white my-1"></div>
+            <Math>{"P(E)"}</Math>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-This perspective makes the theorem less mysterious and more intuitive. We're not performing some magical belief update; we're doing systematic bookkeeping across logical possibilities.
+Both formulas calculate the same thing—<Math>{"P(H|E)"}</Math>—but notice how their numerators are highlighted in purple. This isn't a coincidence. The key insight is that these numerators are mathematically equivalent—they evaluate to the same value even though they're different expressions.
 
-The real insight is that uncertainty isn't about the world being random—it's about not knowing which determinate world we're in. Bayes' theorem gives us a principled way to narrow down the possibilities. 
+<CollapsibleMathBreakdown 
+  title="Why are P(H ∩ E) and P(E|H) × P(H) equal? Let's prove it!"
+  defaultOpen={true}
+  steps={[
+    {
+      step: "Start with the conditional probability formula for P(E|H)",
+      math: "P(E|H) = \\frac{P(E \\cap H)}{P(H)}",
+      explanation: "This is the fundamental definition of conditional probability: the probability of E given H equals the joint probability divided by the probability of H."
+    },
+    {
+      step: "Rearrange the equation by multiplying both sides by P(H)",
+      math: "P(E|H) \\times P(H) = P(E \\cap H)",
+      explanation: "Algebraic manipulation: when we multiply both sides by P(H), the P(H) terms on the right side cancel out, leaving us with the joint probability."
+    },
+    {
+      step: "Apply the commutative property of intersection",
+      math: "P(E \\cap H) = P(H \\cap E)",
+      explanation: "The intersection operation is commutative—the order doesn't matter. Whether we say 'E and H' or 'H and E', we're talking about the same overlapping region in our probability space."
+    },
+    {
+      step: "Substitute to get our final result",
+      math: "P(E|H) \\times P(H) = P(H \\cap E)",
+      explanation: "By substituting step 3 into step 2, we've proven that the numerator of Bayes' theorem P(E|H) × P(H) is indeed equal to the numerator of the conditional probability formula P(H ∩ E)."
+    },
+    {
+      step: "The complete picture: both formulas calculate the same result",
+      math: "P(H|E) = \\frac{P(H \\cap E)}{P(E)} = \\frac{P(E|H) \\times P(H)}{P(E)}",
+      explanation: "This proves why the conditional probability formula and Bayes' theorem are mathematically equivalent—they both calculate P(H|E), with numerators that evaluate to the same value. The key insight is that we often don't know P(H ∩ E) directly, but we do know P(E|H) and P(H). Bayes' theorem lets us use the information we actually have to calculate what we want to know."
+    }
+  ]}
+/>
+
+But there's something much more profound happening here beyond mere mathematical equivalence. 
+
+What we've actually uncovered is the conceptual nature of **indirect inference** that makes Bayes' theorem so powerful. The proof reveals a fascinating journey through different probability universes:
+
+We start with <Math>{"P(E|H)"}</Math>, which assumes H is our complete probability universe—we're measuring everything in "H-units." When we multiply by <Math>{"P(H)"}</Math>, we're doing the **opposite** of the renormalization we learned about earlier. Instead of shrinking our view to treat a subset as the complete space, we're expanding back to the original probability space.
+
+Here's where the commutative property <Math>{"P(E \\cap H) = P(H \\cap E)"}</Math> reveals its profound role: it establishes a fundamental **symmetry** in probability space. This property means we could reach the same intersection from either starting point—whether we begin with <Math>{"P(E|H)"}</Math> and un-normalize using <Math>{"P(H)"}</Math>, or start with <Math>{"P(H|E)"}</Math> and un-normalize using <Math>{"P(E)"}</Math>. Both paths lead to the identical intersection in our original probability space.
+
+<div className="my-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+  <div className="text-center space-y-8">
+    <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+      Two Paths to the Same Intersection
+    </div>
+    
+    {/* Top node - single intersection */}
+    <div className="flex justify-center">
+      <div className="px-6 py-3 rounded-lg bg-purple-100 dark:bg-purple-900/30 border border-purple-300 dark:border-purple-600 text-lg">
+        <Math>{"P(H \\cap E) = P(E \\cap H)"}</Math>
+      </div>
+    </div>
+    
+    {/* Angled arrows/branches */}
+    <div className="relative flex justify-center" style={{ height: '60px' }}>
+      {/* Left diagonal arrow */}
+      <div className="absolute" style={{ left: '30%', top: '-25px' }}>
+        <div 
+          className="text-5xl text-blue-500 dark:text-blue-400 transform rotate-45"
+          style={{ transformOrigin: 'center' }}
+        >
+          ↑
+        </div>
+      </div>
+      
+      {/* Right diagonal arrow */}
+      <div className="absolute" style={{ right: '30%', top: '-25px' }}>
+        <div 
+          className="text-5xl text-green-500 dark:text-green-400 transform -rotate-45"
+          style={{ transformOrigin: 'center' }}
+        >
+          ↑
+        </div>
+      </div>
+    </div>
+    
+    {/* Bottom row - leaf nodes (starting points) */}
+    <div className="flex justify-between items-start px-8">
+      <div className="text-center flex-1">
+        <div className="px-4 py-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-600 inline-block">
+          <div className="flex items-center gap-2">
+            <Math>{"P(H|E)"}</Math>
+            <Math>{"\\times"}</Math>
+            <Math>{"P(E)"}</Math>
+          </div>
+        </div>
+        <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          Start with H-space
+        </div>
+      </div>
+      
+      <div className="text-center flex-1">
+        <div className="px-4 py-3 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-600 inline-block">
+          <div className="flex items-center gap-2">
+            <Math>{"P(E|H)"}</Math>
+            <Math>{"\\times"}</Math>
+            <Math>{"P(H)"}</Math>
+          </div>
+        </div>
+        <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          Start with E-space
+        </div>
+      </div>
+    </div>
+    
+    <div className="text-sm text-gray-600 dark:text-gray-400 pt-2">
+      The commutative property guarantees both paths lead to the same intersection
+    </div>
+  </div>
+</div>
+This symmetry is what makes indirect inference possible. Because both un-normalization processes lead to the same destination, we can use our knowledge of one conditional probability to calculate the other. We take our detour through the original probability space, knowing that the commutative property guarantees we'll arrive at the same intersection regardless of which conditional probability we started with.
+
+Finally, dividing by <Math>{"P(E)"}</Math> renormalizes again, but this time with E as our new unit of measurement. We've completed a full conceptual journey: **H-space → original space → E-space**—and the commutative property is what guarantees this journey leads us to the correct destination.
+
+This dual renormalization process is why Bayes' theorem enables indirect inference. We can infer <Math>{"P(H|E)"}</Math> from <Math>{"P(E|H)"}</Math> by taking a conceptual detour through different probability universes. It's not just algebra—it's a systematic method for flipping between reference frames to extract the information we need from the information we have.
+
+## Putting It All Together
+
+Now that we've built up our intuitive understanding piece by piece, let's step back and appreciate what we've accomplished. We started with an abstract mathematical formula and transformed it into a coherent mental model built from three key insights:
+
+**1. Renormalization through division:** Conditional probability works by treating the "given" event as a new complete universe. When we calculate <Math>{"P(H|E)"}</Math>, we're not just doing division—we're fundamentally changing our frame of reference to measure everything in "E-units."
+
+**2. The symmetry of intersection:** The commutative property <Math>{"P(H \\cap E) = P(E \\cap H)"}</Math> isn't just a mathematical technicality—it's what makes indirect inference possible. It guarantees that we can reach the same probabilistic intersection from different starting points.
+
+**3. Strategic detours through probability space:** Bayes' theorem enables a sophisticated form of reasoning where we journey from one conditional probability <Math>{"P(E|H)"}</Math> to another <Math>{"P(H|E)"}</Math> by taking a calculated detour through the original probability space. Each step—multiplication by <Math>{"P(H)"}</Math> to un-normalize, then division by <Math>{"P(E)"}</Math> to renormalize—corresponds to a meaningful conceptual operation.
+
+This understanding transforms Bayes' theorem from an abstract formula into an intuitive tool for indirect probabilistic reasoning. You now have a solid conceptual foundation for the mathematical mechanics of how the theorem works.
+
+Of course, there's much more to explore: Bayes' theorem takes on slightly different meanings within different domain contexts, and there's an odds-based formalization of this indirect reasoning that's even more intuitive and particularly powerful for applications like medical diagnosis—where understanding it helps avoid the base rate fallacy that trips up most people. But those are adventures for another day.
+
+
+
+
