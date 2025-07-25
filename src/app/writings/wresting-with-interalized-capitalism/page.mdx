@@ -1,5 +1,6 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 import { CollapsibleReferences } from '@/components/CollapsibleReferences'
+import { generateArticleMetadata } from '@/lib/metadata'
 import selfInstrumentalization from './self-instramentalization.png'
 
 export const article = {
@@ -12,10 +13,13 @@ export const article = {
   published: true,
 }
 
-export const metadata = {
+export const metadata = generateArticleMetadata({
   title: article.title,
   description: article.description,
-}
+  date: article.date,
+  author: article.author,
+  slug: 'wresting-with-interalized-capitalism',
+})
 
 export default (props) => <ArticleLayout article={article} {...props} />
 

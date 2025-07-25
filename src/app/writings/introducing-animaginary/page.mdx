@@ -1,18 +1,22 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
+import { generateArticleMetadata } from '@/lib/metadata'
 
 export const article = {
   author: 'Adam Wathan',
   date: '2022-09-02',
   title: 'Introducing Animaginary: High performance web animations',
   description:
-    'When you’re building a website for a company as ambitious as Planetaria, you need to make an impression. I wanted people to visit our website and see animations that looked more realistic than reality itself.',
+    'When you\'re building a website for a company as ambitious as Planetaria, you need to make an impression. I wanted people to visit our website and see animations that looked more realistic than reality itself.',
   published: false,
 }
 
-export const metadata = {
+export const metadata = generateArticleMetadata({
   title: article.title,
   description: article.description,
-}
+  date: article.date,
+  author: article.author,
+  slug: 'introducing-animaginary',
+})
 
 export default (props) => <ArticleLayout article={article} {...props} />
 

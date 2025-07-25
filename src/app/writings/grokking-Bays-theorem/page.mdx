@@ -3,6 +3,7 @@ import { Math } from '@/components/Math'
 import { CollapsibleNotation } from '@/components/CollapsibleNotation'
 import { CollapsibleMathBreakdown } from '@/components/CollapsibleMathBreakdown'
 import { InteractiveVennDiagram } from '@/components/InteractiveVennDiagram'
+import { generateArticleMetadata } from '@/lib/metadata'
 
 export const article = {
   author: 'Sion Wilks',
@@ -13,10 +14,16 @@ export const article = {
   published: true,
 }
 
-export const metadata = {
+export const metadata = generateArticleMetadata({
   title: article.title,
   description: article.description,
-}
+  date: article.date,
+  author: article.author,
+  slug: 'grokking-Bays-theorem',
+  ogImageType: 'math',
+  customFormula: 'P(H|E) = P(E|H) × P(H) / P(E)',
+  highlightConcept: 'Indirect Inference Through Probability',
+})
 
 export default (props) => <ArticleLayout article={article} {...props} />
 
