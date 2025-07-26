@@ -34,7 +34,7 @@ function ChevronRightIcon({ className }: { className?: string }) {
 interface MathStep {
   step: string
   explanation: string
-  math?: string
+  math?: string | React.ReactNode
   stepName?: string
 }
 
@@ -72,7 +72,11 @@ export function CollapsibleMathBreakdown({ title, steps, defaultOpen = false }: 
               </h4>
               {step.math && (
                 <div className="my-3 text-center">
-                  <Math display={true}>{step.math}</Math>
+                  {typeof step.math === 'string' ? (
+                    <Math display={true}>{step.math}</Math>
+                  ) : (
+                    step.math
+                  )}
                 </div>
               )}
               <p className="text-gray-700 dark:text-gray-300">

@@ -120,7 +120,16 @@ The key insight: conditional probability shifts our frame of reference. Instead 
     },
     {
       step: "The mathematical insight: Division changes our measurement system",
-      math: "P(H|E) = \\frac{\\text{Area of } H \\cap E \\text{ within E}}{\\text{Total area of E}} = \\frac{11}{23} ≈ 0.48",
+      math: (
+        <div className="flex flex-col xs:flex-row items-center justify-center gap-1 xs:gap-2">
+          <Math display={true} className="text-lg">{"P(H|E) = \\frac{\\text{Area of } H \\cap E \\text{ within E}}{\\text{Total area of E}}"}</Math>
+          <div className="flex flex-row items-center gap-1">
+            <Math className="text-lg">{"="}</Math>
+            <Math className="text-lg">{"\\frac{11}{23}"}</Math>
+            <Math className="text-lg">{"≈ 0.48"}</Math>
+          </div>
+        </div>
+      ),
       explanation: "Here's the profound insight: when we divide 11 by 23, we're not just doing arithmetic—we're fundamentally changing our measurement system. Division by 23 redefines our unit of measurement so that '23 units' becomes '1 unit.' After this division, we're measuring everything in 'E-units' where E = 1. The result 0.48 tells us that the intersection occupies 0.48 E-units in this new measurement system. This is exactly how conditional probability accomplishes renormalization: the mathematical operation of division IS the conceptual operation of treating E as our new complete space."
     }
   ]}
@@ -202,7 +211,25 @@ Both formulas calculate the same thing—<Math>{"P(H|E)"}</Math>—but notice ho
     },
     {
       step: "The complete picture: both formulas calculate the same result",
-      math: "P(H|E) = \\frac{P(H \\cap E)}{P(E)} = \\frac{P(E|H) \\times P(H)}{P(E)}",
+              math: (
+          <div className="flex flex-col xs:flex-row items-center justify-center gap-1 xs:gap-2">
+            <Math>{"P(H|E)"}</Math>
+            <div className="flex flex-row items-center gap-1 xs:gap-2">
+              <Math>{"="}</Math>
+              <div className="flex flex-col items-center">
+                <Math>{"P(H \\cap E)"}</Math>
+                <div className="w-16 h-px bg-black dark:bg-white"></div>
+                <Math>{"P(E)"}</Math>
+              </div>
+              <Math>{"="}</Math>
+              <div className="flex flex-col items-center">
+                <Math>{"P(E|H) \\times P(H)"}</Math>
+                <div className="w-24 h-px bg-black dark:bg-white"></div>
+                <Math>{"P(E)"}</Math>
+              </div>
+            </div>
+          </div>
+        ),
       explanation: "This proves why the conditional probability formula and Bayes' theorem are mathematically equivalent—they both calculate P(H|E), with numerators that evaluate to the same value. The key insight is that we often don't know P(H ∩ E) directly, but we do know P(E|H) and P(H). Bayes' theorem lets us use the information we actually have to calculate what we want to know."
     }
   ]}
@@ -216,7 +243,7 @@ We start with <Math>{"P(E|H)"}</Math>, which assumes H is our complete probabili
 
 Here's where the commutative property <Math>{"P(E \\cap H) = P(H \\cap E)"}</Math> reveals its profound role: it establishes a fundamental **symmetry** in probability space. This property means we could reach the same intersection from either starting point—whether we begin with <Math>{"P(E|H)"}</Math> and un-normalize using <Math>{"P(H)"}</Math>, or start with <Math>{"P(H|E)"}</Math> and un-normalize using <Math>{"P(E)"}</Math>. Both paths lead to the identical intersection in our original probability space.
 
-<div className="my-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+<div className="my-8 px-0 sm:px-6 py-6 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
   <div className="text-center space-y-8">
     <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
       Two Paths to the Same Intersection
@@ -253,9 +280,9 @@ Here's where the commutative property <Math>{"P(E \\cap H) = P(H \\cap E)"}</Mat
     </div>
     
     {/* Bottom row - leaf nodes (starting points) */}
-    <div className="flex justify-between items-start px-8">
+    <div className="flex justify-between items-start px-0 sm:px-8">
       <div className="text-center flex-1">
-        <div className="px-4 py-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-600 inline-block">
+        <div className=" px-2 sm:px-4 py-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-600 inline-block">
           <div className="flex items-center gap-2">
             <Math>{"P(H|E)"}</Math>
             <Math>{"\\times"}</Math>
@@ -268,7 +295,7 @@ Here's where the commutative property <Math>{"P(E \\cap H) = P(H \\cap E)"}</Mat
       </div>
       
       <div className="text-center flex-1">
-        <div className="px-4 py-3 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-600 inline-block">
+        <div className="px-2 sm:px-4 py-3 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-600 inline-block">
           <div className="flex items-center gap-2">
             <Math>{"P(E|H)"}</Math>
             <Math>{"\\times"}</Math>
