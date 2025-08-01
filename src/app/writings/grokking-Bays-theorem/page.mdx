@@ -74,7 +74,7 @@ An appropriate place to start is with grokking the formal definition of conditio
   ]}
 />
 
-Okay, so we have this formula now how do we understand this just with perceptual intuitions?
+Okay, so we have this formula, but how do we understand it intuitively?
 
 The answer is with a good ol' Venn diagram:
 
@@ -82,7 +82,7 @@ The answer is with a good ol' Venn diagram:
 
 In this diagram, the rectangle represents our complete space of possible outcomes. In probability theory, this total area is always normalized to 1, making mathematical calculations more manageable.
 
-When you click on <Math>{"P(H \\cap E)"}</Math>, you'll see the intersection highlighted in purple. This intersection occupies 11% of the total space, giving it a probability of 0.11. The area occupied by any event in our probability space is called its **probability mass**.
+When you click on <Math>{"P(H \\cap E)"}</Math> within the formula, you'll see the intersection highlighted in purple. This intersection occupies 11% of the total space, giving it a probability of 0.11. The area occupied by any event in our probability space is called its **probability mass**.
 
 Clicking on <Math>{"P(E)"}</Math> reveals how much space is taken up by outcomes where evidence E occurs. In our diagram, E has an area of 0.23, meaning there's a 23% chance of observing evidence E within this particular probability space.
 
@@ -94,7 +94,7 @@ Here's the key conceptual shift: **we renormalize E to have an area of 1**. Even
 
 Within this new "E universe" (now with area 1), we want to know what fraction contains H. The math does this automatically: it takes the intersection area (0.11) and divides by E's original area (0.23), giving us 0.11 ÷ 0.23 ≈ 0.48. This tells us that approximately 48% of our new E-universe also contains H. This is what <Math>{"P(H|E)"}</Math> represents.
 
-The key insight: conditional probability shifts our frame of reference. Instead of asking "What are the chances of H in the entire space?" we're asking "What are the chances of H within the constrained space where E is true?"
+Here's what's happening: conditional probability shifts our frame of reference. Instead of asking "What are the chances of H in the entire space?" we're asking "What are the chances of H within the constrained space where E is true?"
 
 <CollapsibleMathBreakdown 
   title="How does the math actually accomplish this renormalization?"
@@ -117,7 +117,7 @@ The key insight: conditional probability shifts our frame of reference. Instead 
     {
       step: "Cancel out the common terms",
       math: "P(H|E) = \\frac{11 \\times \\cancel{100}}{\\cancel{100} \\times 23} = \\frac{11}{23}",
-      explanation: "The 100s cancel out completely! This is the key insight: we're left with just the ratio of areas within the E region, as if E were our complete space."
+      explanation: "The 100s cancel out completely! Notice what happens: we're left with just the ratio of areas within the E region, as if E were our complete space."
     },
     {
       step: "The mathematical insight: Division changes our measurement system",
@@ -138,7 +138,7 @@ The key insight: conditional probability shifts our frame of reference. Instead 
 
 ## From Conditional Probability to Bayes' Theorem
 
-Now that we have a solid intuitive grasp of conditional probability and its renormalization concept, we're ready to understand how Bayes' theorem builds upon this foundation. The key insight is that Bayes' theorem is simply a clever rearrangement of what we already know—but this rearrangement unlocks powerful new capabilities for reasoning with uncertainty.
+Now that we have a solid intuitive grasp of conditional probability and its renormalization concept, we're ready to understand how Bayes' theorem builds upon this foundation. The key insight to be gained is that Bayes' theorem is a clever rearrangement of what we already know—this rearrangement unlocks powerful new capabilities for reasoning with uncertainty.
 
 The connection becomes clear when we examine the relationship between the conditional probability formula and Bayes' theorem:
 
@@ -184,7 +184,7 @@ The connection becomes clear when we examine the relationship between the condit
   </div>
 </div>
 
-Both formulas calculate the same thing—<Math>{"P(H|E)"}</Math>—but notice how their numerators are highlighted in purple. This isn't a coincidence. The key insight is that these numerators are mathematically equivalent—they evaluate to the same value even though they're different expressions.
+Both formulas calculate the same thing—<Math>{"P(H|E)"}</Math>—but notice how their numerators are highlighted in purple. This isn't a coincidence. The crucial connection is that these numerators are mathematically equivalent—they evaluate to the same value even though they're different expressions.
 
 <CollapsibleMathBreakdown 
   title="Why are P(H ∩ E) and P(E|H) × P(H) equal? Let's prove it!"
@@ -231,7 +231,7 @@ Both formulas calculate the same thing—<Math>{"P(H|E)"}</Math>—but notice ho
             </div>
           </div>
         ),
-      explanation: "This proves why the conditional probability formula and Bayes' theorem are mathematically equivalent—they both calculate P(H|E), with numerators that evaluate to the same value. The key insight is that we often don't know P(H ∩ E) directly, but we do know P(E|H) and P(H). Bayes' theorem lets us use the information we actually have to calculate what we want to know."
+      explanation: "This proves why the conditional probability formula and Bayes' theorem are mathematically equivalent—they both calculate P(H|E), with numerators that evaluate to the same value. What makes this practical is that we often don't know P(H ∩ E) directly, but we do know P(E|H) and P(H). Bayes' theorem lets us use the information we actually have to calculate what we want to know."
     }
   ]}
 />
