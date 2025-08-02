@@ -6,6 +6,7 @@ import { InteractiveVennDiagram } from '@/components/InteractiveVennDiagram'
 import { Feedback } from '@/components/Feedback'
 import { generateArticleMetadata } from '@/lib/metadata'
 
+
 export const article = {
   author: 'Sion Wilks',
   date: '2025-07-24',
@@ -21,9 +22,7 @@ export const metadata = generateArticleMetadata({
   date: article.date,
   author: article.author,
   slug: 'grokking-Bays-theorem',
-  ogImageType: 'math',
-  customFormula: 'P(H|E) = P(E|H) × P(H) / P(E)',
-  highlightConcept: 'Indirect Inference Through Probability',
+ customImage: '/images/og/bayes-theorem-og.png',
 })
 
 export default (props) => <ArticleLayout article={article} {...props} />
