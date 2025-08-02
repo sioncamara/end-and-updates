@@ -97,8 +97,10 @@ export default async function About() {
                 I&apos;m a front-end software engineer who spends much of my time
                 reading and thinking about philosophy and psychology. This site is
                 where I explore ideas at the intersection of rationality, ethics,
-                and human motivation. Some of what I write is structured, some is
-                speculative—but all of it is part of figuring things out.
+                and human motivation—from the mathematical tools that shape how we
+                reason to the philosophical questions about why we act as we do.
+                Some of what I write is structured, some is speculative—but all of
+                it is part of figuring things out.
               </p>
             </div>
             <div className="mt-16">
